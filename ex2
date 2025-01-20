@@ -1,0 +1,45 @@
+#include <iostream>
+
+const int NMAX = 1000;
+
+void swap_sort(int* m) {
+    for (int i = 0; i < NMAX; i++) {
+        for (int j = i + 1; j < NMAX; j++) {
+            if (m[i] > m[j]) {
+                std::swap(m[i], m[j]);
+            }
+        }
+    }
+}
+
+void quick_sort(int* m, unsigned int size) {
+    unsigned int mid = size / 2;
+    for (int i = 0; i < size; i++) {
+        if (m[i] > m[size - 1]) {
+            std::swap(m[i], m[mid])
+        }
+    }
+}
+
+int main() {
+    clock_t start, end;
+    int m[NMAX];
+    for (int i = 0; i < NMAX; i++) {
+        m[i] = NMAX - i;
+    }
+    start = clock();
+    swap_sort(m);
+    end = clock();
+    double time_swap_sort = double(end - start) / double(CLOCKS_PER_SEC);
+    std::cout << "Swap sort took " << time_swap_sort << " sec" << std::endl;
+
+    start = clock();
+    quick_sort(m, NMAX);
+    end = clock();
+    double time_quik_sort = double(end - start) / double(CLOCKS_PER_SEC);
+    std::cout << "Quik sort took " << time_quik_sort << " sec" << std::endl;
+    return 0;
+
+}
+
+
