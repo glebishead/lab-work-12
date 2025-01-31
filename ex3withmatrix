@@ -1,0 +1,34 @@
+#include <iostream>
+
+int I = INT_MAX;
+
+void f(int vertex, int (&A)[7][7], int* labels, int n) {
+    for (int i = 0; i < n; i++) {
+        if (A[vertex][i] != I && A[vertex][i] != 0) {
+            int new_label = labels[vertex] + A[vertex][i];
+            if (new_label < labels[i]) {
+                labels[i] = new_label;
+                f(i, A, labels, n);
+            }
+        }
+    }
+}
+
+int main()
+{
+    int A[7][7] = {
+        {0, 2, I, 6, I, I, I},
+        {2, 0, 5, 3, I, I, I},
+        {I, 5, 0, 1, I, I, 8},
+        {6, 3, 1, 0, 9, 7, I},
+        {I, I, I, 9, 0, I, 5},
+        {I, I, I, 7, I, 0, 7},
+        {I, I, 8, I, 5, 7, 0}
+    };
+    int labels[7] = { 0, I, I, I, I, I, I };
+    f(0, A, labels, 7);
+    for (int i = 0; i < 7; i++) {
+        std::cout << labels[i] << " ";
+    }
+    return 0;
+}
